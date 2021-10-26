@@ -25,15 +25,13 @@ public class MicrophoneApplication {
         final MicrophoneApplication recorder = new MicrophoneApplication();
         // creates a new thread that waits for a specified
         // of time before stopping
-        final Thread stopper = new Thread(new Runnable() {
-            public void run() {
-                try {
-                    Thread.sleep(RECORD_TIME);
-                } catch (InterruptedException ex) {
-                    ex.printStackTrace();
-                }
-                recorder.close();
+        final Thread stopper = new Thread(() -> {
+            try {
+                Thread.sleep(RECORD_TIME);
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
             }
+            recorder.close();
         });
         stopper.start();
         // start recording
